@@ -1,0 +1,28 @@
+%html
+  %head
+    %title MpdWeb
+    %link{ href: "/css/main.css", rel: "stylesheet" }
+    %script{ src: "/js/vendor/zepto.js" }
+    %script{ src: "/js/main.js" }
+  %body
+    #container
+      %h1 MpdWeb
+      
+    #player
+      %a.prev{ href: js_void } <<
+      %a.play{ href: js_void } >
+      %a.next{ href: js_void } >>
+      .track
+        &nbsp;
+    
+    .playlist
+      %h2 Playlist
+      %ul
+        - @playlist.each do |song|
+          %li= song.name
+    
+    .database
+      %h2 Database
+      %ul
+        - @database.each do |song|
+          %li= song.name
