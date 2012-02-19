@@ -29,8 +29,9 @@ osx:
 ### configuring mpd
 
 	mpd --no-daemon -v config/mpd.conf
-    mpc update
-	
+	mpc update
+
+
 ### useful links
 
 mpd configs
