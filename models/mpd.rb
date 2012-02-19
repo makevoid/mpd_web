@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Mpd
   
   @@state = nil
@@ -86,6 +88,7 @@ class Mpd
   end
   
   def list_songs(string)
+    string = string.encode("UTF-8", invalid: :replace, undef: :replace)
     songs = string.split("\n")
     songs.map do |song|
       Song.new song
