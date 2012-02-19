@@ -6,10 +6,12 @@ describe MpdWeb do
     context "player" do
       it "plays mpd" do
         post "/play"
+        Mpd.state.should == "playing"
       end
       
       it "pause mpd" do
         post "/pause"
+        Mpd.state.should == "playing"
       end
     end
     
