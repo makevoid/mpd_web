@@ -1,35 +1,31 @@
 class Mpd
-  
+
   @@state = nil
-  
-  def self.state=(state)
-    @@state = state
-  end
-  
-  def self.state
+
+  def state
     @@state
   end
-  
+
   def playpause
     mpc 'toggle'
   end
 
   def play
     mpc 'play'
+    @@state = :playing
   end
 
   def pause
     mpc 'pause'
+    @@state =  :paused
   end
 
   def prev
     mpc 'prev'
-    super
   end
 
   def next
     mpc 'next'
-    super
   end
 
   def voldown
@@ -69,22 +65,22 @@ class Mpd
   def search(name)
     mpc "search any #{name}"
   end
-  
+
   def listall
     list_songs mpc("listall")
   end
   alias :database :listall
-  
+
   def playlist
     list_songs mpc("playlist")
   end
 
   private
-  
+
   def mpc(command)
     %x(mpc #{command}).strip
   end
-  
+
   def list_songs(string)
     songs = string.split("\n")
     songs.map do |song|
