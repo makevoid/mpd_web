@@ -1,14 +1,15 @@
 (function() {
-  var get_current_track, log, post, song_view;
+  var get_current_track, log, post, refresh, song_view;
 
   log = function(msg) {
     if (console) return console.log(msg);
   };
 
-  post = function(method, attrs) {
+  post = function(method, attrs, callback) {
     if (attrs == null) attrs = {};
     return $.post("/" + method, attrs, function() {
-      return log("post: " + method);
+      log("post: " + method);
+      if (callback) return callback();
     });
   };
 
@@ -26,19 +27,30 @@
       post("next");
       return get_current_track();
     });
-    $("#player .playlist").on("click", function() {
+    $(".playlist.name").on("click", function() {
       post("play_idx", {
         idx: $(this).data("idx")
       });
       return get_current_track();
     });
-    $("#player .database.name").on("click", function() {
+    $(".database.name, .database.artist, .database.album").on("click", function() {
       return post("add", {
         path: $(this).data("path")
+      }, function() {
+        return refresh();
+      });
+    });
+    $(".playlist .crop").on("click", function() {
+      return post("crop", {}, function() {
+        return refresh();
       });
     });
     return get_current_track();
   });
+
+  refresh = function() {
+    return document.location.href = "/";
+  };
 
   get_current_track = function() {
     return $.getJSON("/current", function(data) {

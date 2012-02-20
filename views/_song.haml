@@ -1,11 +1,9 @@
-- path = song.path
-
 %li
   - if song.type == :database
-    %a.database.artist{ href: js_void, :"data-path" => path }= song.artist
+    %a.database.artist{ href: js_void, :"data-path" => song.artist }= song.artist
     \-
-    %a.database.album{ href: js_void, :"data-path" => path }= song.album
+    %a.database.album{ href: js_void, :"data-path" => song.album_path }= song.album
     \-
-    %a.database.name{ href: js_void, :"data-path" => path }= song.name
+    %a.database.name{ href: js_void, :"data-path" => song.path }= song.name
   - else # :playlist
     %a.playlist.name{ href: js_void, :"data-idx" => idx }= "#{song.artist} - #{song.name}"

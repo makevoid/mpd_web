@@ -51,12 +51,17 @@ class MpdWeb < Sinatra::Base
   end
 
   post "/play_idx" do
-    mpd.play params[:idx]
+    mpd.play_idx params[:idx]
     redirect "/"
   end
 
   post "/add" do
-    mpd.toggle
+    mpd.add params[:path]
+    redirect "/"
+  end
+
+  post "/crop" do
+    mpd.crop
     redirect "/"
   end
 end

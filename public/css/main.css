@@ -34,3 +34,9 @@ a:hover {
   background: #bbbbbb;
   color: #444444;
   text-decoration: none; }
+
+.crop {
+  background: #555555;
+  padding: 4px 10px;
+  font-size: 0.6em;
+  border-radius: 10px; }

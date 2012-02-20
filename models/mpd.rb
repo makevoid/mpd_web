@@ -36,6 +36,14 @@ class Mpd
     mpc 'next'
   end
 
+  def add(path)
+    mpc "add \"#{path}\""
+  end
+
+  def crop
+    mpc "crop"
+  end
+
   def voldown
     mpc 'volume -10'
   end

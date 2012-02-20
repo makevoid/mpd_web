@@ -2,7 +2,7 @@ require 'pathname'
 
 class Song
 
-  attr_reader :name, :artist, :type, :album, :path
+  attr_reader :name, :artist, :type, :album, :path, :album_path
 
   def initialize(type, string)
     case type
@@ -31,6 +31,10 @@ class Song
 
   def attributes
     { name: name, artist: artist, type: type, album: album,  path: path }
+  end
+
+  def album_path
+    "#{@artist}/#{@album}"
   end
 
 end

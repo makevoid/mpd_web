@@ -17,10 +17,12 @@
             &nbsp;
 
         .playlist
-          %h2 Playlist
+          %h2 
+            Playlist
+            %a.crop{ href: js_void } Crop
           %ul
             - @playlist.each_with_index do |song, idx|
-              = haml :"_song", locals: { song: song, idx: idx  }
+              = haml :"_song", locals: { song: song, idx: idx+1  }
 
         .database
           %h2 Database

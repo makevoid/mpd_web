@@ -4,9 +4,10 @@ log = (msg) -> console.log msg if console
 
 # events
 
-post = (method, attrs={}) ->
+post = (method, attrs={}, callback) ->
   $.post "/#{method}", attrs, ->
     log "post: #{method}"
+    callback() if callback
 
 $ ->
   $("#player .play").on "click", ->
@@ -27,15 +28,23 @@ $ ->
     post "next"
     get_current_track()
     
-  $("#player .playlist").on "click", ->
+  $(".playlist.name").on "click", ->
     post "play_idx", idx: $(this).data("idx")
     get_current_track()
     
-  $("#player .database.name").on "click", ->
-    post "add", path: $(this).data("path")
+  $(".database.name, .database.artist, .database.album").on "click", ->
+    post "add", path: $(this).data("path"), ->
+      refresh()
     
+  $(".playlist .crop").on "click", ->
+    post "crop", {}, ->
+      refresh()
+  
   get_current_track()
-    
+
+refresh = ->
+  document.location.href = "/"
+
 get_current_track = ->
   $.getJSON "/current", (data) ->
     $(".current_track").html(song_view(data))
