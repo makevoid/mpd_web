@@ -4,11 +4,7 @@ class Mpd
 
   @@state = nil
 
-  def self.state=(state)
-    @@state = state
-  end
-
-  def self.state
+  def state
     @@state
   end
 
@@ -18,20 +14,20 @@ class Mpd
 
   def play
     mpc 'play'
+    @@state = :playing
   end
 
   def pause
     mpc 'pause'
+    @@state =  :paused
   end
 
   def prev
     mpc 'prev'
-    super
   end
 
   def next
     mpc 'next'
-    super
   end
 
   def voldown
@@ -87,7 +83,11 @@ class Mpd
     %x(mpc #{command}).strip
   end
 
+<<<<<<< HEAD
   def list_songs(type, string)
+=======
+  def list_songs(string)
+>>>>>>> 4fe6933f00e5ac07eec13c10881a7541c7e3efe7
     string = string.encode("UTF-8", invalid: :replace, undef: :replace)
     songs = string.split("\n")
     songs.map do |song|
