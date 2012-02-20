@@ -1,0 +1,9 @@
+%li
+  - if song.type == :database
+    %a.database.artist{ href: js_void }= song.artist
+    \-
+    %a.database.album{ href: js_void }= song.album
+    \-
+    %a.database.name{ href: js_void }= song.name
+  - else # :playlist
+    %a.playlist.name{ href: js_void}= "#{song.artist} - #{song.name}"

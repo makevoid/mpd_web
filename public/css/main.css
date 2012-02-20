@@ -15,6 +15,13 @@ a {
   color: white;
   text-decoration: none; }
 
+a:hover {
+  color: #cccccc;
+  text-decoration: underline; }
+
+#container {
+  margin: 20px; }
+
 #player a {
   display: inline-block;
   font-weight: bold;
@@ -24,4 +31,6 @@ a {
   background: #555555;
   border: 1px solid #aaaaaa; }
 #player a:hover {
-  background: #999999; }
+  background: #bbbbbb;
+  color: #444444;
+  text-decoration: none; }

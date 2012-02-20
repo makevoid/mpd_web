@@ -1,17 +1,17 @@
 # encoding: utf-8
 
 class Mpd
-  
+
   @@state = nil
-  
+
   def self.state=(state)
     @@state = state
   end
-  
+
   def self.state
     @@state
   end
-  
+
   def playpause
     mpc 'toggle'
   end
@@ -71,27 +71,27 @@ class Mpd
   def search(name)
     mpc "search any #{name}"
   end
-  
+
   def listall
-    list_songs mpc("listall")
+    list_songs :path, mpc("listall")
   end
   alias :database :listall
-  
+
   def playlist
-    list_songs mpc("playlist")
+    list_songs :label, mpc("playlist")
   end
 
   private
-  
+
   def mpc(command)
     %x(mpc #{command}).strip
   end
-  
-  def list_songs(string)
+
+  def list_songs(type, string)
     string = string.encode("UTF-8", invalid: :replace, undef: :replace)
     songs = string.split("\n")
     songs.map do |song|
-      Song.new song
+      Song.new type, song
     end
   end
 end
