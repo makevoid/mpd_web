@@ -4,6 +4,12 @@ require_relative "mpd_mock"
 describe MpdWeb do
   context "/" do
 
+    context "playlist" do
+      it "add a track to the playlist" do
+        post "/add"
+      end
+    end
+
     context "player" do
       it "plays mpd" do
         post "/play"
@@ -19,8 +25,22 @@ describe MpdWeb do
         post "/next"
       end
 
+      it "toggles play/pause" do
+        post "/play"
+        post "/toggle"
+        app.mpd.state.should == :paused
+        post "/toggle"
+        app.mpd.state.should == :playing
+      end
+
       it "switches to prev song" do
         post "/prev"
+      end
+    end
+
+    context "infos" do
+      it "gets current track" do
+        get "/current"
       end
     end
 

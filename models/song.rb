@@ -2,7 +2,7 @@ require 'pathname'
 
 class Song
 
-  attr_reader :name, :artist, :type, :album
+  attr_reader :name, :artist, :type, :album, :path
 
   def initialize(type, string)
     case type
@@ -27,6 +27,10 @@ class Song
       @album  = split[1] if split.size >= 2
     end
     @name = @path.basename(".*")
+  end
+
+  def attributes
+    { name: name, artist: artist, type: type, album: album,  path: path }
   end
 
 end

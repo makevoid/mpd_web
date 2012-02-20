@@ -6,22 +6,22 @@
     %script{ src: "/js/main.js" }
   %body
     #container
-      %header 
+      %header
         %h1 MpdWeb
       %content
         #player
           %a.prev{ href: js_void } <<
           %a.play{ href: js_void } >
           %a.next{ href: js_void } >>
-          .track
+          .current_track
             &nbsp;
-    
+
         .playlist
           %h2 Playlist
           %ul
-            - @playlist.each do |song|
-              = haml :"_song", locals: { song: song }
-    
+            - @playlist.each_with_index do |song, idx|
+              = haml :"_song", locals: { song: song, idx: idx  }
+
         .database
           %h2 Database
           %ul

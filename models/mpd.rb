@@ -8,12 +8,18 @@ class Mpd
     @@state
   end
 
-  def playpause
+  def toggle
     mpc 'toggle'
+    @@state = @@state == :playing ? :paused : :playing
   end
 
   def play
     mpc 'play'
+    @@state = :playing
+  end
+
+  def play_idx(idx)
+    mpc "play #{idx}"
     @@state = :playing
   end
 
@@ -41,6 +47,10 @@ class Mpd
   def volume
     mpc('volume').grep(/([0-9]+)/)
     $1
+  end
+
+  def current
+    list_songs(:label, mpc("current")).first
   end
 
   def track
@@ -83,11 +93,7 @@ class Mpd
     %x(mpc #{command}).strip
   end
 
-<<<<<<< HEAD
   def list_songs(type, string)
-=======
-  def list_songs(string)
->>>>>>> 4fe6933f00e5ac07eec13c10881a7541c7e3efe7
     string = string.encode("UTF-8", invalid: :replace, undef: :replace)
     songs = string.split("\n")
     songs.map do |song|

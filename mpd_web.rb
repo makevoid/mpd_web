@@ -20,6 +20,11 @@ class MpdWeb < Sinatra::Base
     haml :index
   end
 
+  get "/current" do
+    content_type :json
+    mpd.current.attributes.to_json
+  end
+
   post "/play" do
     mpd.play
     redirect "/"
@@ -40,4 +45,18 @@ class MpdWeb < Sinatra::Base
     redirect "/"
   end
 
+  post "/toggle" do
+    mpd.toggle
+    redirect "/"
+  end
+
+  post "/play_idx" do
+    mpd.play params[:idx]
+    redirect "/"
+  end
+
+  post "/add" do
+    mpd.toggle
+    redirect "/"
+  end
 end
