@@ -40,3 +40,22 @@ a:hover {
   padding: 4px 10px;
   font-size: 0.6em;
   border-radius: 10px; }
+
+.playlist a.del {
+  color: #990000;
+  padding: 0 6px 3px 5px;
+  font-weight: bold; }
+.playlist a.del:hover {
+  background: #990000;
+  color: white;
+  text-decoration: none; }
+
+.current_track {
+  font-size: 1.2em;
+  margin: 10px 0 0 0; }
+
+.volume {
+  display: inline-block;
+  background: #777777;
+  padding: 3px 5px 0;
+  border-radius: 5px; }

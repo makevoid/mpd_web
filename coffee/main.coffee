@@ -27,6 +27,16 @@ $ ->
   $("#player .next").on "click", ->
     post "next"
     get_current_track()
+  
+  on_volume_change = ->
+    $("#player input[name=volume]").on "change", ->
+      $("#player input[name=volume]").off "change"
+      volume = $("input[name=volume]").val()
+      post "volume/#{volume}", ->
+        get_current_track()
+        on_volume_change()
+        
+  on_volume_change()
     
   $(".playlist.name").on "click", ->
     post "play_idx", idx: $(this).data("idx")
@@ -38,6 +48,10 @@ $ ->
     
   $(".playlist .crop").on "click", ->
     post "crop", {}, ->
+      refresh()
+      
+  $(".playlist .del").on "click", ->
+    post "del", idx: $(this).data("idx"), ->
       refresh()
   
   get_current_track()

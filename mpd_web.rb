@@ -16,14 +16,18 @@ class MpdWeb < Sinatra::Base
 
   get "/" do
     @playlist = mpd.playlist
-    @database = mpd.database
+    @artists = mpd.artists
     haml :index
   end
 
   get "/current" do
     content_type :json
-    {}.to_json
-    mpd.current.attributes.to_json if current
+
+    if mpd.current
+      mpd.current.attributes.to_json
+    else
+      {}.to_json
+    end
   end
 
   post "/play" do
@@ -65,4 +69,15 @@ class MpdWeb < Sinatra::Base
     mpd.crop
     redirect "/"
   end
+
+  post "/del" do
+    mpd.del params[:idx]
+    redirect "/"
+  end
+
+  post "/volume/:volume" do |volume|
+    mpd.volume = volume
+    redirect "/"
+  end
+
 end

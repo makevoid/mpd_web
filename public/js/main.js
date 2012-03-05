@@ -14,6 +14,7 @@
   };
 
   $(function() {
+    var on_volume_change;
     $("#player .play").on("click", function() {
       var val;
       val = $("#player .play").html() === "||" ? (post("pause"), ">") : (post("play"), get_current_track(), "||");
@@ -27,6 +28,18 @@
       post("next");
       return get_current_track();
     });
+    on_volume_change = function() {
+      return $("#player input[name=volume]").on("change", function() {
+        var volume;
+        $("#player input[name=volume]").off("change");
+        volume = $("input[name=volume]").val();
+        return post("volume/" + volume, function() {
+          get_current_track();
+          return on_volume_change();
+        });
+      });
+    };
+    on_volume_change();
     $(".playlist.name").on("click", function() {
       post("play_idx", {
         idx: $(this).data("idx")
@@ -42,6 +55,13 @@
     });
     $(".playlist .crop").on("click", function() {
       return post("crop", {}, function() {
+        return refresh();
+      });
+    });
+    $(".playlist .del").on("click", function() {
+      return post("del", {
+        idx: $(this).data("idx")
+      }, function() {
         return refresh();
       });
     });

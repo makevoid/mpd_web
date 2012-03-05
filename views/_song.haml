@@ -1,4 +1,6 @@
-%li
+%li 
+  = idx
+  \-
   - if song.type == :database
     %a.database.artist{ href: js_void, :"data-path" => song.artist }= song.artist
     \-
@@ -7,3 +9,5 @@
     %a.database.name{ href: js_void, :"data-path" => song.path }= song.name
   - else # :playlist
     %a.playlist.name{ href: js_void, :"data-idx" => idx }= "#{song.artist} - #{song.name}"
+    %a.playlist.del{ href: js_void, :"data-idx" => idx }
+      x

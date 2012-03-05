@@ -40,16 +40,16 @@ class Mpd
     mpc "add \"#{path}\""
   end
 
+  def del(idx)
+    mpc "del #{idx}"
+  end
+
   def crop
     mpc "crop"
   end
 
-  def voldown
-    mpc 'volume -10'
-  end
-
-  def volup
-    mpc 'volume +10'
+  def volume=(vol)
+    mpc "volume #{vol}"
   end
 
   def volume
@@ -90,6 +90,11 @@ class Mpd
     list_songs :path, mpc("listall")
   end
   alias :database :listall
+
+  def artists
+    artists = mpc("list artist").split("\n")
+    artists.map{ |artist| Artist.new artist }
+  end
 
   def playlist
     list_songs :label, mpc("playlist")

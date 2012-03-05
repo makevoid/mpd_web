@@ -13,19 +13,23 @@
           %a.prev{ href: js_void } <<
           %a.play{ href: js_void } >
           %a.next{ href: js_void } >>
+          .volume
+            %input{ type: "range", name: "volume", min: "0", max: "100"  }
+            
           .current_track
             &nbsp;
+            
 
         .playlist
-          %h2 
+          %h2
             Playlist
             %a.crop{ href: js_void } Crop
           %ul
             - @playlist.each_with_index do |song, idx|
               = haml :"_song", locals: { song: song, idx: idx+1  }
 
-        .database
-          %h2 Database
+        .artists
+          %h2 Artists
           %ul
-            - @database.each do |song|
-              = haml :"_song", locals: { song: song }
+            - @artists.each do |artist|
+              = haml :"_artist", locals: { artist: artist }
