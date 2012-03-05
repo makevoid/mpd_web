@@ -22,7 +22,8 @@ class MpdWeb < Sinatra::Base
 
   get "/current" do
     content_type :json
-    mpd.current.attributes.to_json
+    {}.to_json
+    mpd.current.attributes.to_json if current
   end
 
   post "/play" do
