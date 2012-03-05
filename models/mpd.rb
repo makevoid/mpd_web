@@ -92,7 +92,8 @@ class Mpd
   alias :database :listall
 
   def artists
-    artists = mpc("list artist").split("\n")
+    artists = mpc("list artist").encode("UTF-8", invalid: :replace, undef: :replace)
+    artists = artists.split("\n")
     artists.map{ |artist| Artist.new artist }
   end
 
