@@ -14,7 +14,7 @@
           %a.play{ href: js_void } >
           %a.next{ href: js_void } >>
           .volume
-            %input{ type: "range", name: "volume", min: "0", max: "100"  }
+            %input{ type: "range", name: "volume", min: "0", max: "100", value: MpdWeb.mpd.volume }
             
           .current_track
             &nbsp;

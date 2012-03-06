@@ -53,8 +53,12 @@ class Mpd
   end
 
   def volume
-    mpc('volume').grep(/([0-9]+)/)
-    $1
+    if mpc('volume')
+      mpc('volume').grep(/([0-9]+)/)
+      $1
+    else
+      50
+    end
   end
 
   def current
@@ -93,7 +97,7 @@ class Mpd
 
   def artists
     artists = mpc("list artist").encode("UTF-8", invalid: :replace, undef: :replace)
-    artists = artists.split("\n")
+    artists = artists.split("\n").sort
     artists.map{ |artist| Artist.new artist }
   end
 
