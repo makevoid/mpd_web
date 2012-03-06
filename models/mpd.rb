@@ -54,7 +54,7 @@ class Mpd
 
   def volume
     if mpc('volume')
-      mpc('volume').grep(/([0-9]+)/)
+      mpc('volume') =~ /([0-9]+)/
       $1
     else
       50
