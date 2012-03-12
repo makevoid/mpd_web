@@ -104,6 +104,10 @@ class Mpd
   def playlist
     list_songs :label, mpc("playlist")
   end
+  
+  def artist_songs(artist)
+    mpc("list artist #{artist}").encode("UTF-8", invalid: :replace, undef: :replace)
+  end
 
   private
 

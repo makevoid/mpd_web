@@ -7,9 +7,9 @@
 
   post = function(method, attrs, callback) {
     if (attrs == null) attrs = {};
-    return $.post("/" + method, attrs, function() {
+    return $.post("/" + method, attrs, function(data) {
       log("post: " + method);
-      if (callback) return callback();
+      if (callback) return callback(data);
     });
   };
 
@@ -51,6 +51,14 @@
         path: $(this).data("path")
       }, function() {
         return refresh();
+      });
+    });
+    $("a.database.artist_songs").on("click", function() {
+      console.log("asd");
+      return post("artist_songs", {
+        artist: $(this).data("artist")
+      }, function(data) {
+        return console.log(data);
       });
     });
     $(".playlist .crop").on("click", function() {

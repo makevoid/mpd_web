@@ -79,5 +79,11 @@ class MpdWeb < Sinatra::Base
     mpd.volume = volume
     redirect "/"
   end
+  
+  post "/artist_songs" do
+    songs = mpd.artist_songs params[:artist]
+    content_type :json
+    songs.to_json
+  end
 
 end

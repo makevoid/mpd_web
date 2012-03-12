@@ -5,9 +5,9 @@ log = (msg) -> console.log msg if console
 # events
 
 post = (method, attrs={}, callback) ->
-  $.post "/#{method}", attrs, ->
+  $.post "/#{method}", attrs, (data) ->
     log "post: #{method}"
-    callback() if callback
+    callback(data) if callback
 
 $ ->
   $("#player .play").on "click", ->
@@ -45,7 +45,12 @@ $ ->
   $(".database.name, .database.artist, .database.album").on "click", ->
     post "add", path: $(this).data("path"), ->
       refresh()
-    
+  
+  $("a.database.artist_songs").on "click", ->
+    console.log "asd"
+    post "artist_songs", artist: $(this).data("artist"), (data) ->
+      console.log data
+      
   $(".playlist .crop").on "click", ->
     post "crop", {}, ->
       refresh()
@@ -53,7 +58,7 @@ $ ->
   $(".playlist .del").on "click", ->
     post "del", idx: $(this).data("idx"), ->
       refresh()
-  
+
   get_current_track()
 
 refresh = ->

@@ -1,3 +1,10 @@
 %li
   %a.database.artist{ href: js_void, :"data-path" => artist.name }
     = artist.name
+  
+  %a.database.artist_songs{ href: js_void, :"data-artist" => artist.name }
+    >
+    
+  - if params[:artist] == artist.name
+    .artist_songs
+      loading...
